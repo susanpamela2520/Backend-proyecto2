@@ -10,7 +10,7 @@ juegos = Juegos()
 
 @app.route("/" , methods = ['GET'])
 def inicio():
-	return "The server is up!"
+	return "Todo Good!"
 
 @app.route("/login" , methods = ['GET'])
 def login():
