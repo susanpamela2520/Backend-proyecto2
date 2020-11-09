@@ -64,7 +64,7 @@ class Juegos:
 
     def edit_v(self, obj):
         for juego in self.juegos:
-            if(juego['id'] == obj['id']):
+            if(juego['id'] == int(obj['id'])):
                 juego['nombre'] = obj['nombre']
                 juego['año'] = obj['año']
                 juego['precio'] = obj['precio']
@@ -75,14 +75,14 @@ class Juegos:
         return {'ok': False}
     def del_v(self, id):
         for juego in self.juegos:
-            if(juego['id'] == id):
+            if(juego['id'] == int(id)):
                 self.juegos.remove(juego)
                 return {'ok': True}
         return {'ok': False}
 
     def get_v(self, id):
         for juego in self.juegos:
-            if(juego['id'] == id):
+            if(juego['id'] == int(id)):
                 return {'ok':True, 'juego': juego}
         return {'ok':False}
 

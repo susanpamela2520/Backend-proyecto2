@@ -35,7 +35,7 @@ class Usuarios:
         print(self.usuarios)
         for usuario in self.usuarios:
             if(usuario['user'] == user and usuario['pass'] == pswd):
-                return {'user': user}
+                return {'user': usuario}
         return {'user': False}
 
     def registrar(self, user, tipo, pswd, nombre, apellido):
