@@ -52,17 +52,17 @@ def juego_get():
 @app.route('/juego/new', methods=['POST'])
 def juego_new():
     content = request.get_json()
-    data = content['data']
     obj = {
-        "id": random.randint(1, 999999),
-        "nombre": data['name'],
-        "año": data['price'],
-        "categoria": [data['cat1'], data['cat2'], data['cat3']],
-        "foto": data['photo'],
-        "banner": data['banner'],
-        "descripcion": data['desc']
+        "id": str(random.randint(1, 999999)),
+        "nombre": content['name'],
+        "año": content['year'],
+        "precio": content['price'],
+        "categoria": [content['cat1'], content['cat2'], content['cat3']],
+        "foto": content['photo'],
+        "banner": content['banner'],
+        "descripcion": content['desc']
     }
-    return juego.insert_v(obj)
+    return juegos.insert_v(obj)
 
 @app.route('/juego/edit', methods=['POST'])
 def juego_edit():
@@ -71,7 +71,8 @@ def juego_edit():
     obj = {
         "id": data['id'],
         "nombre": data['name'],
-        "año": data['price'],
+        "año": data['year'],
+        "precio": data['price'],
         "categoria": [data['cat1'], data['cat2'], data['cat3']],
         "foto": data['photo'],
         "banner": data['banner'],
@@ -79,7 +80,7 @@ def juego_edit():
     }
     return juegos.edit_v(obj)
 
-@app.route('/juego/del', methods=['POST'])
+@app.route('/juego/del', methods=['GET'])
 def juego_del():
     id = request.args.get('id')
     return juegos.del_v(id)
@@ -88,10 +89,12 @@ def juego_del():
 @app.route('/carga', methods=['POST'])
 def carga():
     content = request.get_json()
-    return juegos.carga(content['data'])
+    data = content['data']
+    return juegos.carga(data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=True)
+
 
 """
 login

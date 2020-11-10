@@ -1,9 +1,9 @@
-
+import re
 class Juegos:
     def __init__(self):
         self.juegos = [
             {
-                "id": 0,
+                "id": "0",
                 "nombre": "juego",
                 "año": 1999,
                 "precio": 10.01,
@@ -17,7 +17,9 @@ class Juegos:
     def carga(self, string: str):
         try:
             i = 0
+            string.replace('\r','')
             for linea in string.split('\n'):
+                
                 i += 1
                 if i == 1:
                     continue
@@ -32,8 +34,10 @@ class Juegos:
                     "descripcion": None
                 }
                 data = linea.split(',')
+                if(len(data)<2):
+                    break
 
-                obj['id'] = int(data[0])
+                obj['id'] = data[0]
                 obj['nombre'] = data[1]
                 obj['año'] = int(data[2])
                 obj['precio'] = float(data[3])
@@ -45,9 +49,9 @@ class Juegos:
                 if(data[6] != ''):
                     obj['categoria'].append(data[6])
 
-                obj['foto'] = data[-3]
-                obj['banner'] = data[-2]
-                obj['descripcion'] = data[-1]
+                obj['foto'] = data[7]
+                obj['banner'] = data[8]
+                obj['descripcion'] = data[9]
 
                 self.juegos.append(obj)
 
@@ -60,11 +64,11 @@ class Juegos:
 
     def insert_v(self, obj):
         self.juegos.append(obj)
-        return{'ok', True}
+        return {'ok': True}
 
     def edit_v(self, obj):
         for juego in self.juegos:
-            if(juego['id'] == int(obj['id'])):
+            if(juego['id'] == obj['id']):
                 juego['nombre'] = obj['nombre']
                 juego['año'] = obj['año']
                 juego['precio'] = obj['precio']
@@ -75,14 +79,14 @@ class Juegos:
         return {'ok': False}
     def del_v(self, id):
         for juego in self.juegos:
-            if(juego['id'] == int(id)):
+            if(juego['id'] == str(id)):
                 self.juegos.remove(juego)
                 return {'ok': True}
         return {'ok': False}
 
     def get_v(self, id):
         for juego in self.juegos:
-            if(juego['id'] == int(id)):
+            if(juego['id'] == str(id)):
                 return {'ok':True, 'juego': juego}
         return {'ok':False}
 
